@@ -5,7 +5,7 @@ export type BookListProps = {
 };
 
 export type EditBookProps = {
-  onSubmit: (id: string, data: BookData) => void;
+  onSubmit: (id: string, data: AudioBookData | PaperBookData) => void;
 };
 
 export type Book = {
@@ -17,10 +17,17 @@ export type BookData = {
   author: string;
   genre: string;
   description: string;
+  type: "Audio" | "Paper"; 
+  minutes?: number; 
+  pages?: number; 
 };
 
+export type AudioBookData = Omit<BookData, "pages">;
+export type PaperBookData = Omit<BookData, "minutes">;
+
+
 export type NewBookProps = {
-  onSubmit: (data: BookData) => void;
+  onSubmit: (data: AudioBookData | PaperBookData) => void;
 };
 
 export type BookProps = {
@@ -49,6 +56,9 @@ export type BookDetailsFormProps = {
   author?: string;
   genre?: string;
   description?: string;
+  type?: "Audio" | "Paper"; 
+  minutes?: number;
+  pages?: number;
 };
 
 export type DrawerMenuProps = {

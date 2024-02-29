@@ -2,8 +2,12 @@ import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { BookData, BookDetailsFormProps } from "../types/types";
+import {
+  BookData,
+  BookDetailsFormProps,
+} from "../types/types";
 import { validationSchema } from "../constants/validation";
+import { MenuItem } from "@mui/material";
 
 export default function BookDetailsForm({
   onSubmit,
@@ -11,6 +15,9 @@ export default function BookDetailsForm({
   author = "",
   genre = "",
   description = "",
+  type = "Audio",
+  minutes = type === "Audio" ? 0 : undefined,
+  pages = type === "Paper" ? 0 : undefined,
 }: BookDetailsFormProps) {
   const formik = useFormik({
     initialValues: {
@@ -18,6 +25,9 @@ export default function BookDetailsForm({
       author,
       genre,
       description,
+      type,
+      minutes,
+      pages,
     },
     validationSchema: validationSchema,
     onSubmit: (values: BookData) => {
@@ -76,6 +86,57 @@ export default function BookDetailsForm({
         helperText={formik.touched.description && formik.errors.description}
         sx={{ marginBottom: 3 }}
       />
+      <TextField
+        fullWidth
+        id="type"
+        name="type"
+        label="Type"
+        select
+        value={formik.values.type}
+        onChange={formik.handleChange}
+        sx={{ marginBottom: 3 }}
+      >
+        <MenuItem value="Audio">Audio</MenuItem>
+        <MenuItem value="Paper">Paper</MenuItem>
+      </TextField>
+      {formik.values.type === "Audio" && (
+        <TextField
+          fullWidth
+          id="minutes"
+          name="minutes"
+          label="Minutes"
+          type="number"
+          inputProps={{
+            min: 0,
+            step: 1,
+            onKeyDown: (event) => {
+              event.preventDefault();
+            },
+          }}
+          value={formik.values.minutes }
+          onChange={formik.handleChange}
+          sx={{ marginBottom: 3 }}
+        />
+      )}
+      {formik.values.type === "Paper" && (
+        <TextField
+          fullWidth
+          id="pages"
+          name="pages"
+          label="Pages"
+          type="number"
+          inputProps={{
+            min: 0,
+            step: 1,
+            onKeyDown: (event) => {
+              event.preventDefault();
+            },
+          }}
+          value={formik.values.pages}
+          onChange={formik.handleChange}
+          sx={{ marginBottom: 3 }}
+        />
+      )}
       <Button
         color="success"
         variant="contained"

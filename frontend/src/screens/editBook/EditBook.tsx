@@ -15,8 +15,10 @@ export default function EditBook({ onSubmit }: EditBookProps) {
         author={book.author}
         description={book.description}
         genre={book.genre}
-        onSubmit={(data) => onSubmit(book.id, data)}
-      />
+        type={book.type}  
+        minutes={book.minutes}
+        pages={book.pages}
+        onSubmit={(data) => onSubmit(book.id, data)}/>
     </Container>
   );
 }

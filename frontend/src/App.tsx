@@ -7,7 +7,7 @@ import ErrorFallback from "./components/ErrorFallback";
 import { createApi } from "./api/booksApi";
 import { baseURL, booksKey } from "./constants/api";
 import Loading from "./components/Loading";
-import { BookData } from "./types/types";
+import { AudioBookData, PaperBookData } from "./types/types";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -23,8 +23,9 @@ export default function App() {
   const navigate = useNavigate();
   const { data: books } = useSWR(booksKey, api.get, { fallbackData: [] });
 
-  const handleCreateBook = async (data: BookData) => {
+  const handleCreateBook = async (data: AudioBookData |PaperBookData) => {
     try {
+      console.log(data)
       await api.post(data);
       mutate(booksKey);
       navigate("/list");
@@ -33,7 +34,7 @@ export default function App() {
     }
   };
 
-  const handleUpdateBook = async (id: string, data: BookData) => {
+  const handleUpdateBook = async (id: string, data: AudioBookData| PaperBookData) => {
     try {
       await api.put(`${id}`, data);
       mutate(booksKey);

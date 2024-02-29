@@ -55,7 +55,7 @@ export default function ViewBook({ onDelete }: BookProps) {
           sx={{ padding: 2, marginBottom: 10, marginTop: 5 }}
         >
           <Grid container spacing={1} alignItems="center">
-            <Grid item xs={6}>
+          <Grid item xs={6}>
               <Typography
                 variant="subtitle1"
                 gutterBottom
@@ -123,6 +123,59 @@ export default function ViewBook({ onDelete }: BookProps) {
                 {book.description}
               </Typography>
             </Grid>
+            <Grid item xs={12}>
+              <Divider sx={{ marginBottom: 1 }} />
+            </Grid>
+            {book.type === "Audio" && (
+              <>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                    align="left"
+                    sx={{ wordWrap: "break-word", fontWeight: "bold" }}
+                  >
+                    Minutes:
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    align="right"
+                    color={theme.palette.text.secondary}
+                    sx={{ wordWrap: "break-word" }}
+                  >
+                    {book.minutes}
+                  </Typography>
+                </Grid>
+              </>
+            )}
+            {book.type === "Paper" && (
+              <>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                    align="left"
+                    sx={{ wordWrap: "break-word", fontWeight: "bold" }}
+                  >
+                    Pages:
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    align="right"
+                    color={theme.palette.text.secondary}
+                    sx={{ wordWrap: "break-word" }}
+                  >
+                    {book.pages}
+                  </Typography>
+                </Grid>
+              </>
+            )}
             <Grid item xs={12}>
               <Divider sx={{ marginBottom: 1 }} />
             </Grid>
