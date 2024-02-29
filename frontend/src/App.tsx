@@ -23,9 +23,9 @@ export default function App() {
   const navigate = useNavigate();
   const { data: books } = useSWR(booksKey, api.get, { fallbackData: [] });
 
-  const handleCreateBook = async (data: AudioBookData |PaperBookData) => {
+  const handleCreateBook = async (data: AudioBookData | PaperBookData) => {
     try {
-      console.log(data)
+      console.log(data);
       await api.post(data);
       mutate(booksKey);
       navigate("/list");
@@ -34,7 +34,10 @@ export default function App() {
     }
   };
 
-  const handleUpdateBook = async (id: string, data: AudioBookData| PaperBookData) => {
+  const handleUpdateBook = async (
+    id: string,
+    data: AudioBookData | PaperBookData
+  ) => {
     try {
       await api.put(`${id}`, data);
       mutate(booksKey);

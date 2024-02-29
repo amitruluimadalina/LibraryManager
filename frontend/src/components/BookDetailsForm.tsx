@@ -2,10 +2,7 @@ import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import {
-  BookData,
-  BookDetailsFormProps,
-} from "../types/types";
+import { BookDetailsFormProps } from "../types/types";
 import { validationSchema } from "../constants/validation";
 import { MenuItem } from "@mui/material";
 
@@ -16,8 +13,8 @@ export default function BookDetailsForm({
   genre = "",
   description = "",
   type = "Audio",
-  minutes = type === "Audio" ? 0 : undefined,
-  pages = type === "Paper" ? 0 : undefined,
+  minutes = 0,
+  pages = 0,
 }: BookDetailsFormProps) {
   const formik = useFormik({
     initialValues: {
@@ -30,7 +27,7 @@ export default function BookDetailsForm({
       pages,
     },
     validationSchema: validationSchema,
-    onSubmit: (values: BookData) => {
+    onSubmit: (values) => {
       onSubmit(values);
     },
   });
@@ -113,7 +110,7 @@ export default function BookDetailsForm({
               event.preventDefault();
             },
           }}
-          value={formik.values.minutes }
+          value={formik.values.minutes}
           onChange={formik.handleChange}
           sx={{ marginBottom: 3 }}
         />
